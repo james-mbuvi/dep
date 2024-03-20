@@ -25,31 +25,31 @@ const Sidebar = () => {
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaPhone className='inline-block w-6 h-6 mr-2 -mt-2'></FaPhone>
             Contacts 
           </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaTasks className='inline-block w-6 h-6 mr-2 -mt-2'></FaTasks>
             Events
           </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
             Campaigns
           </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
             Membership
           </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaDollarSign className='inline-block w-6 h-6 mr-2 -mt-2'></FaDollarSign>
             Finance
           </button>
         </li>
@@ -61,13 +61,13 @@ const Sidebar = () => {
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaCalendar className='inline-block w-6 h-6 mr-2 -mt-2'></FaCalendar>
             My Tasks
           </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
         <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
             Settings
           </button>
         </li>

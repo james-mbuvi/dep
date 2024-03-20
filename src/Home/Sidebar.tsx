@@ -3,6 +3,13 @@ import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaW
 import { FaUserGroup } from 'react-icons/fa6'
 
 const Sidebar = () => {
+  
+  
+    const handleHomeClick = () => {
+      // Add your logic here for what should happen when the Home button is clicked
+      console.log('Home button clicked');
+    }
+
   return (
     <div className='w-64 bg-blue-800 fixed px-4 py-2'>
       <div className='my-2 mb-4'>
@@ -11,58 +18,58 @@ const Sidebar = () => {
       <hr />
       <ul className='mt-3 text-white font-bold'>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
+        <button onClick={handleHomeClick} className='px-3'>
             <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Home
-          </a>
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaPhone className='inline-block w-6 h-6 mr-2 -mt-2'></FaPhone>
-            Contacts
-          </a>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            Contacts 
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaCalendar className='inline-block w-6 h-6 mr-2 -mt-2'></FaCalendar>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Events
-          </a>
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
-            Campaingns
-          </a>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            Campaigns
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Membership
-          </a>
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaDollarSign className='inline-block w-6 h-6 mr-2 -mt-2'></FaDollarSign>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Finance
-          </a>
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Community
-          </a>
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaTasks className='inline-block w-6 h-6 mr-2 -mt-2'></FaTasks>
-            My Task
-          </a>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+            My Tasks
+          </button>
         </li>
         <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-          <a href="" className='px-3'>
-            <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
+        <button onClick={handleHomeClick} className='px-3'>
+            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
             Settings
-          </a>
+          </button>
         </li>
       </ul>
     </div>

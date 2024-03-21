@@ -1,88 +1,110 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaWallet } from 'react-icons/fa'
 import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
+import EventForm from '../EventsForm'
+// import Membership from './Membership'
+// import Finance from './Finance'
+// import Community from './Community'
+// import MyTasks from './MyTasks'
+// import Settings from './Settings'
 
 const Sidebar = () => {
-  
-  const [showContact, setShowContact] = useState(false);
-  
-  const handleContact = () => {
-    setShowContact(!showContact);
-  };
-    const handleHomeClick= () => {
-      // Add your logic here for what should happen when the Home button is clicked
-      console.log('Home button clicked');
-    }
 
+  const [activeTab, setActiveTab] = useState(null);
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName === activeTab ? null : tabName);
+  };
 
   return (
-    
-    <div className='w-64 bg-blue-800 fixed px-4 py-2'>
-      <div className='my-2 mb-4'>
-      <h1 className='text-2x text-white font-bold'>Admin Dashboard</h1>
-      </div>
-      <hr />
-      <ul className='mt-3 text-white font-bold'>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-        <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
-        Home
-        </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleContact} className='px-3'>
-         <span className='text-black'>
-        <FaPhone className='inline-block w-6 h-6 mr-2 -mt-1'></FaPhone>
-         </span>
-         Contact
-        </button>
-        {showContact && <Contact />}
-        </li>
+    <div className='flex flex-col md:flex-row'>
+      <div className='w-full md:w-64 bg-blue-800 px-4 py-2 md:fixed md:h-full overflow-y-auto'>
+        <div className='my-2 mb-4'>
+          <h1 className='text-2xl text-white font-bold'>Admin Dashboard</h1>
+        </div>
+        <hr />
+        <ul className='mt-3 text-white font-bold'>
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'home' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('home')} className='px-3'>
+              <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+              Home
+            </button>
+          </li>
 
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaTasks className='inline-block w-6 h-6 mr-2 -mt-2'></FaTasks>
-            Events
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
-            Campaigns
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
-            Membership
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaDollarSign className='inline-block w-6 h-6 mr-2 -mt-2'></FaDollarSign>
-            Finance
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
-            Community
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaCalendar className='inline-block w-6 h-6 mr-2 -mt-2'></FaCalendar>
-            My Tasks
-          </button>
-        </li>
-        <li className='mb-2 rounded hover:shadow hover:bg-gray-800 py-2'>
-        <button onClick={handleHomeClick} className='px-3'>
-            <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
-            Settings
-          </button>
-        </li>
-      </ul>
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'contact' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('contact')} className='px-3'>
+              <span className='text-black'>
+                <FaPhone className='inline-block w-6 h-6 mr-2 -mt-1'></FaPhone>
+              </span>
+              Contact
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'events' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('events')} className='px-3'>
+              <span className='text-black'>
+                <FaWallet className='inline-block w-6 h-6 mr-2 -mt-1'></FaWallet>
+              </span>
+              Events
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'campaigns' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('campaigns')} className='px-3'>
+              <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
+              Campaigns
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'membership' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('membership')} className='px-3'>
+              <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
+              Membership
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'finance' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('finance')} className='px-3'>
+              <FaDollarSign className='inline-block w-6 h-6 mr-2 -mt-2'></FaDollarSign>
+              Finance
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'community' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('community')} className='px-3'>
+              <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
+              Community
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'tasks' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('tasks')} className='px-3'>
+              <FaCalendar className='inline-block w-6 h-6 mr-2 -mt-2'></FaCalendar>
+              My Tasks
+            </button>
+          </li>
+
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'settings' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('settings')} className='px-3'>
+              <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
+              Settings
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div className='flex-3 p-4 pl-64'>
+        {/* Content on the right */}
+        {activeTab === 'home' && <div>Home Content</div>}
+        {activeTab === 'contact' && <Contact />}
+        {activeTab === 'events' && <EventForm />}
+        {/* {activeTab === 'campaigns' && <Campaigns />}
+        {activeTab === 'membership' && <Membership />}
+        {activeTab === 'finance' && <Finance />}
+        {activeTab === 'community' && <Community />}
+        {activeTab === 'tasks' && <MyTasks />}
+        {activeTab === 'settings' && <Settings />} */}
+      </div>
     </div>
   )
 }

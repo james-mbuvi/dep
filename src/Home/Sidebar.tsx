@@ -76,23 +76,10 @@ const Sidebar = () => {
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'community' ? 'bg-gray-800' : ''}`}>
             <button onClick={() => handleTabClick('community')} className='px-3'>
               <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
-              Community
+              Communication
             </button>
-          </li>
-
-          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'tasks' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('tasks')} className='px-3'>
-              <FaCalendar className='inline-block w-6 h-6 mr-2 -mt-2'></FaCalendar>
-              My Tasks
-            </button>
-          </li>
-
-          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'settings' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('settings')} className='px-3'>
-              <FaCog className='inline-block w-6 h-6 mr-2 -mt-2'></FaCog>
-              Settings
-            </button>
-          </li>
+          </li>  
+             
         </ul>
       </div>
       <div className='flex-3 p-4 pl-64'>

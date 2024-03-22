@@ -2,27 +2,43 @@ import React, { useState } from 'react';
 
 const Membership = () => {
   const [isUpgraded, setIsUpgraded] = useState(false);
-  const [newMemberName, setNewMemberName] = useState('');
-  const [newMemberEmail, setNewMemberEmail] = useState('');
-  const [members, setMembers] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [image, setImage] = useState(null);
+  const [isPaid, setIsPaid] = useState(false);
 
   const handleUpgradeClick = () => {
-    setIsUpgraded(true);
-    // Perform upgrade action here, such as updating user's plan in the backend
+    if (isPaid) {
+      // Perform upgrade action here, such as updating user's plan in the backend
+      // For demonstration, we'll just toggle the state to simulate an upgrade
+      setIsUpgraded(true);
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
+  const handlePaymentStatusChange = (e) => {
+    setIsPaid(e.target.checked);
   };
 
   const handleAddMember = () => {
-    const newMember = {
-      name: newMemberName,
-      email: newMemberEmail
-    };
-    setMembers([...members, newMember]);
-    setNewMemberName('');
-    setNewMemberEmail('');
+    // Perform member addition action here, such as sending data to the backend
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Image:', image);
+    console.log('Paid:', isPaid);
+    // Reset form fields after adding member
+    setName('');
+    setEmail('');
+    setImage(null);
+    setIsPaid(false);
   };
 
   return (
-    <div className="bg-gray-100 py-6 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="px-4 py-5 sm:px-6">
@@ -33,7 +49,7 @@ const Membership = () => {
             <dl>
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Current Plan</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">Premium{isUpgraded && ' Plus'}</dd>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{isUpgraded ? 'Premium Plus' : 'Premium'}</dd>
               </div>
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Plan Expiry</dt>
@@ -42,39 +58,57 @@ const Membership = () => {
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Upgrade Plan</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                  {!isUpgraded && (
+                  {isPaid ? (
                     <button onClick={handleUpgradeClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                      Upgrade to Premium.
+                      Upgrade to Premium
                     </button>
+                  ) : (
+                    <span className="text-green-500">Upgrade option available after payment</span>
                   )}
-                  {isUpgraded && <span className="text-gray-500">Already Upgraded</span>}
                 </dd>
               </div>
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Add New Member</dt>
-                <dd className="mt-1 sm:col-span-2">
-                  <div className="flex space-x-4">
-                    <input type="text" placeholder="Name" value={newMemberName} onChange={(e) => setNewMemberName(e.target.value)} className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm" />
-                    <input type="email" placeholder="Email" value={newMemberEmail} onChange={(e) => setNewMemberEmail(e.target.value)} className="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm" />
-                    <button onClick={handleAddMember} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                  <div className="flex items-center space-x-4">
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="border-black-300 focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm"
+                    />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="border-blue-300 focus:ring-red-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm"
+                    />
                   </div>
+                  <div className="mt-4">
+                    <label htmlFor="paid" className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        id="paid"
+                        checked={isPaid}
+                        onChange={handlePaymentStatusChange}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <span className="ml-2 text-sm text-gray-900">Paid</span>
+                    </label>
+                  </div>
+                  <button onClick={handleAddMember} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Add Member
+                  </button>
                 </dd>
               </div>
-              {members.length > 0 && (
-                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">Members List</dt>
-                  <dd className="mt-1 sm:col-span-2">
-                    <ul className="divide-y divide-gray-200">
-                      {members.map((member, index) => (
-                        <li key={index} className="py-2">
-                          <span className="text-gray-900">{member.name}</span>
-                          <span className="ml-2 text-gray-500">{member.email}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              )}
             </dl>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaW
 import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
 import EventForm from '../EventsForm'
-import AddMemberForm from './AddMemberForm'
+
 import Membership from './Membership'
 // import Membership from './Membership'
 // import Finance from './Finance'

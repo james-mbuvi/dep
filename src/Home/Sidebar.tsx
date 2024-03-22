@@ -3,6 +3,8 @@ import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaW
 import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
 import EventForm from '../EventsForm'
+import AddMemberForm from './AddMemberForm'
+import Membership from './Membership'
 // import Membership from './Membership'
 // import Finance from './Finance'
 // import Community from './Community'
@@ -98,6 +100,7 @@ const Sidebar = () => {
         {activeTab === 'home' && <div>Home Content</div>}
         {activeTab === 'contact' && <Contact />}
         {activeTab === 'events' && <EventForm />}
+        {activeTab === 'membership' && <Membership />}
         {/* {activeTab === 'campaigns' && <Campaigns />}
         {activeTab === 'membership' && <Membership />}
         {activeTab === 'finance' && <Finance />}

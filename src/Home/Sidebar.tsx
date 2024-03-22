@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaWallet } from 'react-icons/fa'
 import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
-import EventForm from '../EventsForm'
+import EventForm from './EventsForm'
+import Membership from './Membership'
+import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 // import Membership from './Membership'
 // import Finance from './Finance'
 // import Community from './Community'
@@ -33,12 +36,22 @@ const Sidebar = () => {
           </li>
 
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'contact' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('contact')} className='px-3'>
+            {/* <button onClick={() => handleTabClick('contact')} className='px-3'>
               <span className='text-black'>
                 <FaPhone className='inline-block w-6 h-6 mr-2 -mt-1'></FaPhone>
               </span>
               Contact
-            </button>
+            </button> */}
+
+             <a href="/Contact" className='px-3'> 
+              <span className='text-black'>
+                <FaPhone className='inline-block w-6 h-6 mr-2 -mt-1'></FaPhone>
+              </span>
+              Contact
+            </a>
+
+
+            
           </li>
 
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'events' ? 'bg-gray-800' : ''}`}>
@@ -58,10 +71,29 @@ const Sidebar = () => {
           </li>
 
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'membership' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('membership')} className='px-3'>
+            {/* <button onClick={() => handleTabClick('membership')} className='px-3'>
               <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
               Membership
-            </button>
+            </button> */}
+
+
+
+
+
+
+
+
+<div className=''>
+             <a href="/src/Home/Membership.tsx" className='px-3'>
+              <FaUsers className='inline-block w-6 h-6 mr-2 -mt-2'></FaUsers>
+              Membership
+              </a> 
+
+              </div>
+
+
+
+
           </li>
 
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'finance' ? 'bg-gray-800' : ''}`}>
@@ -110,3 +142,65 @@ const Sidebar = () => {
 }
 
 export default Sidebar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

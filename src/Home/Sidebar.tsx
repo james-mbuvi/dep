@@ -4,13 +4,11 @@ import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
 import EventForm from '../EventsForm'
 import Membership from './Membership'
-<<<<<<< HEAD
 import HomePage from './images/HomePage'
-=======
 import Finance from './Finance'
 import Campaign from './Campaign'
 
->>>>>>> main
+
 // import Membership from './Membership'
 // import Community from './Community'
 // import MyTasks from './MyTasks'

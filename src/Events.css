@@ -1,7 +1,7 @@
 .event-form-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: #64b345;
+    background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
   }
@@ -26,7 +26,7 @@
   
   .event-item {
     padding: 10px;
-    border: 1px solid #3a3737;
+    border: 1px solid #ccc;
     width: 200px;
   }
   
@@ -39,7 +39,7 @@
   
   input[type="text"] {
     padding: 5px;
-    border: 1px solid #a30808;
+    border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
@@ -48,8 +48,8 @@
   
   .add-event-button {
     padding: 5px 10px;
-    background-color: #062714;
-    color: rgb(59, 19, 133);
+    background-color: #27ae60;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;

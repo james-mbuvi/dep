@@ -4,8 +4,10 @@ import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
 import EventForm from '../EventsForm'
 import Membership from './Membership'
+import HomePage from './images/HomePage'
 import Finance from './Finance'
 import Campaign from './Campaign'
+
 
 // import Membership from './Membership'
 // import Community from './Community'
@@ -80,7 +82,7 @@ const Sidebar = () => {
       </div>
       <div className='flex-3 p-4 pl-64'>
         {/* Content on the right */}
-        {activeTab === 'home' && <div>Home Content</div>}
+        {activeTab === 'home' && <HomePage />}
         {activeTab === 'contact' && <Contact />}
         {activeTab === 'events' && <EventForm />}
         {activeTab === 'membership' && <Membership />}
@@ -98,3 +100,55 @@ const Sidebar = () => {
 }
 
 export default Sidebar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

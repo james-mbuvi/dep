@@ -1,18 +1,20 @@
-import "./App.css"
+import React from "react";
 import Sidebar from "./Home/Sidebar";
-import DashBoard from "./Home/Dashboard";
-import LoginForm from "./LoginForm";
 
-
-function App (){
-  
+function App() {
   return (
-    <div className='flex'>
+    <div className="flex flex-col md:flex-row">
       <Sidebar />
-      <DashBoard />
-      <LoginForm/>
+
+      
+     
+
     </div>
   );
 }
 
-export default App
+export default App;
+
+
+
+

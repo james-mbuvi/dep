@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
-import './Events.css'; // Import the CSS file
 
 const EventForm = () => {
   const [eventName, setEventName] = useState('');
@@ -60,59 +59,65 @@ const EventForm = () => {
   };
 
   return (
-    <div className="event-form-container">
-      <form onSubmit={handleSubmit} className="event-form">
+    <div className="max-w-md mx-auto mt-8 p-6 bg-gray-100 shadow-md rounded-md">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="form-group">
-          <label htmlFor="eventName">Event Name:</label>
+          <label htmlFor="eventName" className="text-gray-600">Event Name:</label>
           <input
             type="text"
             id="eventName"
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
+            className="input-field"
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="organizer">Organizer:</label>
+          <label htmlFor="organizer" className="text-gray-600">Organizer:</label>
           <input
             type="text"
             id="organizer"
             value={organizer}
             onChange={(e) => setOrganizer(e.target.value)}
+            className="input-field"
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="time">Time:</label>
+          <label htmlFor="time" className="text-gray-600">Time:</label>
           <input
             type="text"
             id="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
+            className="input-field"
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="date">Date:</label>
+          <label htmlFor="date" className="text-gray-600">Date:</label>
           <input
             type="text"
             id="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+            className="input-field"
             required
           />
         </div>
-        <button type="submit" className="add-event-button">Add Event</button>
+        <button type="submit" className="add-event-button bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Add Event
+        </button>
       </form>
-      <div className="events-list">
+      <div className="events-list mt-6">
         {events.map((event) => (
           <div key={event.id} className="event-item-container">
-            <div className="event-item">
-              <h3>{event.eventName}</h3>
-              <p>Organizer: {event.organizer}</p>
-              <p>Time: {event.time}</p>
-              <p>Date: {event.date}</p>
-              <button onClick={() => handleDelete(event.id)} className="delete-button">Delete</button>
+            <div className="event-item bg-gray-200 p-4 rounded-md">
+              <h3 className="text-lg font-semibold">{event.eventName}</h3>
+              <p className="text-gray-600">Organizer: {event.organizer}</p>
+              <p className="text-gray-600">Time: {event.time}</p>
+              <p className="text-gray-600">Date: {event.date}</p>
+              <button onClick={() => handleDelete(event.id)} className="delete-button mt-2 bg-red-500 text-white px-2 py-1 rounded-md">Delete</button>
             </div>
           </div>
         ))}

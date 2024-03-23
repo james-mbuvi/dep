@@ -1,6 +1,7 @@
 import "./App.css"
 import Sidebar from "./Home/Sidebar";
 import DashBoard from "./Home/Dashboard";
+import LoginForm from "./LoginForm";
 
 
 function App (){
@@ -9,6 +10,7 @@ function App (){
     <div className='flex'>
       <Sidebar />
       <DashBoard />
+      <LoginForm/>
     </div>
   );
 }

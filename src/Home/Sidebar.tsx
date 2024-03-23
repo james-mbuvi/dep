@@ -3,10 +3,11 @@ import { FaCalendar, FaCog, FaDollarSign, FaHome, FaPhone, FaTasks, FaUsers, FaW
 import { FaUserGroup } from 'react-icons/fa6'
 import Contact from './Contact'
 import EventForm from '../EventsForm'
-
 import Membership from './Membership'
+import Finance from './Finance'
+import Campaign from './Campaign'
+
 // import Membership from './Membership'
-// import Finance from './Finance'
 // import Community from './Community'
 // import MyTasks from './MyTasks'
 // import Settings from './Settings'
@@ -52,12 +53,7 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'campaigns' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('campaigns')} className='px-3'>
-              <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
-              Campaigns
-            </button>
-          </li>
+          
 
           <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'membership' ? 'bg-gray-800' : ''}`}>
             <button onClick={() => handleTabClick('membership')} className='px-3'>
@@ -73,12 +69,12 @@ const Sidebar = () => {
             </button>
           </li>
 
-          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'community' ? 'bg-gray-800' : ''}`}>
-            <button onClick={() => handleTabClick('community')} className='px-3'>
-              <FaHome className='inline-block w-6 h-6 mr-2 -mt-2'></FaHome>
-              Communication
+          <li className={`mb-2 rounded hover:shadow hover:bg-gray-800 py-2 ${activeTab === 'campaigns' ? 'bg-gray-800' : ''}`}>
+            <button onClick={() => handleTabClick('campaigns')} className='px-3'>
+              <FaUserGroup className='inline-block w-6 h-6 mr-2 -mt-2'></FaUserGroup>
+              Campaigns
             </button>
-          </li>  
+          </li>
              
         </ul>
       </div>
@@ -88,9 +84,11 @@ const Sidebar = () => {
         {activeTab === 'contact' && <Contact />}
         {activeTab === 'events' && <EventForm />}
         {activeTab === 'membership' && <Membership />}
+        {activeTab === 'finance' && <Finance />}
+        {activeTab === 'campaigns' && <Campaign />}
+
         {/* {activeTab === 'campaigns' && <Campaigns />}
         {activeTab === 'membership' && <Membership />}
-        {activeTab === 'finance' && <Finance />}
         {activeTab === 'community' && <Community />}
         {activeTab === 'tasks' && <MyTasks />}
         {activeTab === 'settings' && <Settings />} */}

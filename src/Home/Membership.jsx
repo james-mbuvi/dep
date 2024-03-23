@@ -1,94 +1,170 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const Membership = () => {
-  const [isUpgraded, setIsUpgraded] = useState(false);
-  const [newMemberName, setNewMemberName] = useState('');
-  const [newMemberEmail, setNewMemberEmail] = useState('');
-  const [announcement, setAnnouncement] = useState('');
-  const [membershipStatus, setMembershipStatus] = useState('Active');
-  const [events, setEvents] = useState([]);
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [location, setLocation] = useState('');
+  const [email, setEmail] = useState('');
+  const [members, setMembers] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editMemberId, setEditMemberId] = useState(null);
 
-  const handleUpgradeClick = () => {
-    // Perform upgrade action here, such as updating user's plan in the backend
-    // For demonstration, we'll just toggle the state to simulate an upgrade
-    setIsUpgraded(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'members'));
+        const fetchedMembers = [];
+        querySnapshot.forEach((doc) => {
+          fetchedMembers.push({ id: doc.id, ...doc.data() });
+        });
+        setMembers(fetchedMembers);
+      } catch (error) {
+        console.error('Error fetching members: ', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isEditing && editMemberId) {
+        await updateDoc(doc(db, 'members', editMemberId), {
+          name,
+          image,
+          phoneNumber,
+          location,
+          email,
+        });
+        console.log('Member updated with ID: ', editMemberId);
+        setEditMemberId(null);
+        setIsEditing(false);
+      } else {
+        const docRef = await addDoc(collection(db, 'members'), {
+          name,
+          image,
+          phoneNumber,
+          location,
+          email,
+        });
+        console.log('Member added with ID: ', docRef.id);
+      }
+      // Reset form fields
+      setName('');
+      setImage('');
+      setPhoneNumber('');
+      setLocation('');
+      setEmail('');
+    } catch (error) {
+      console.error('Error adding/updating member: ', error);
+    }
   };
 
-  const handleAddMember = () => {
-    // Add new member logic here, such as sending data to backend
-    console.log('New member added:', newMemberName, newMemberEmail);
-    // Clear input fields after adding member
-    setNewMemberName('');
-    setNewMemberEmail('');
+  const handleEdit = (memberId) => {
+    const memberToEdit = members.find((member) => member.id === memberId);
+    if (memberToEdit) {
+      setName(memberToEdit.name);
+      setImage(memberToEdit.image);
+      setPhoneNumber(memberToEdit.phoneNumber);
+      setLocation(memberToEdit.location);
+      setEmail(memberToEdit.email);
+      setEditMemberId(memberId);
+      setIsEditing(true);
+    }
   };
 
-  const handleAddAnnouncement = () => {
-    // Add announcement logic here
-    console.log('Announcement added:', announcement);
-    // Clear announcement input field after adding announcement
-    setAnnouncement('');
-  };
-
-  const handleAddEvent = () => {
-    // Add event logic here
-    console.log('Event added:', events);
-    // Clear events input field after adding event
-    setEvents([]);
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'members', id));
+      console.log('Member deleted with ID: ', id);
+      // Update the members list after deletion
+      setMembers(members.filter((member) => member.id !== id));
+    } catch (error) {
+      console.error('Error deleting member: ', error);
+    }
   };
 
   return (
-    <div className="bg-gray-100 py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Membership</h3>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">Manage your membership options here.</p>
-          </div>
-          <div className="border-t border-gray-200">
-            {/* Upgrade Section */}
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Upgrade Plan</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                {!isUpgraded && (
-                  <button onClick={handleUpgradeClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Upgrade to Premium
-                  </button>
-                )}
-                {isUpgraded && <span className="text-gray-500">Already Upgraded</span>}
-              </dd>
-            </div>
-            {/* Add New Member Section */}
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Add New Member</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                <input type="text" placeholder="Name" value={newMemberName} onChange={(e) => setNewMemberName(e.target.value)} className="border rounded px-3 py-1 mr-2" />
-                <input type="email" placeholder="Email" value={newMemberEmail} onChange={(e) => setNewMemberEmail(e.target.value)} className="border rounded px-3 py-1 mr-2" />
-                <button onClick={handleAddMember} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Member</button>
-              </dd>
-            </div>
-            {/* Manage Announcements Section */}
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Manage Announcements</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                <textarea placeholder="Write your announcement..." value={announcement} onChange={(e) => setAnnouncement(e.target.value)} className="border rounded px-3 py-2 w-full" rows="3"></textarea>
-                <button onClick={handleAddAnnouncement} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Add Announcement</button>
-              </dd>
-            </div>
-            {/* Membership Status Section */}
-            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Membership Status</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{membershipStatus}</dd>
-            </div>
-            {/* Upcoming Events Section */}
-            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Upcoming Events</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
-                <textarea placeholder="Enter upcoming events..." value={events} onChange={(e) => setEvents(e.target.value)} className="border rounded px-3 py-2 w-full" rows="3"></textarea>
-                <button onClick={handleAddEvent} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">Add Event</button>
-              </dd>
-            </div>
-          </div>
+    <div className="max-w-4xl mx-auto px-4 bg-yellow-100 py-8 rounded-lg">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex flex-col">
+          <label htmlFor="name" className="text-sm">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="border border-gray-300 rounded-md px-2 py-1"
+            required
+          />
         </div>
+        <div className="flex flex-col">
+          <label htmlFor="image" className="text-sm">Image URL:</label>
+          <input
+            type="text"
+            id="image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="border border-gray-300 rounded-md px-2 py-1"
+            required
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="phoneNumber" className="text-sm">Phone Number:</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="border border-gray-300 rounded-md px-2 py-1"
+            required
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="location" className="text-sm">Location:</label>
+          <input
+            type="text"
+            id="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="border border-gray-300 rounded-md px-2 py-1"
+            required
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-sm">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border border-gray-300 rounded-md px-2 py-1"
+            required
+          />
+        </div>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          {isEditing ? 'Update Member' : 'Add Member'}
+        </button>
+      </form>
+      <div className="mt-8">
+        {members.map((member) => (
+          <div key={member.id} className="border border-gray-300 rounded-md p-4 mt-4 flex items-center">
+            <img src={member.image} alt="Member" className="w-12 h-12 rounded-full mr-4" />
+            <div>
+              <h3 className="text-lg font-semibold">{member.name}</h3>
+              <p className="text-sm">Phone Number: {member.phoneNumber}</p>
+              <p className="text-sm">Location: {member.location}</p>
+              <p className="text-sm">Email: {member.email}</p>
+              <div className="flex mt-2">
+                <button onClick={() => handleEdit(member.id)} className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">Edit</button>
+                <button onClick={() => handleDelete(member.id)} className="bg-red-500 text-white px-2 py-1 rounded-md">Delete</button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

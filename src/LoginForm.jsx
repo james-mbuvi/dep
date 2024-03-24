@@ -52,7 +52,7 @@ const LoginForm = ({ isLoggedIn, onLogin, onLogout }) => {
   return (
     <div className="max-w-md mx-auto p-4">
       {isLoggedIn && (
-        <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button onClick={handleLogout} className="block w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4">
           Logout
         </button>
       )}
@@ -82,10 +82,10 @@ const LoginForm = ({ isLoggedIn, onLogin, onLogout }) => {
             />
           </div>
           {error && <p className="text-red-500">{error}</p>}
-          <button type="submit" onClick={handleLogin} className="login-button bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <button type="submit" onClick={handleLogin} className="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Login
           </button>
-          <button type="submit" onClick={handleSignUp} className="signup-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <button type="submit" onClick={handleSignUp} className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Sign Up
           </button>
         </form>
@@ -95,3 +95,28 @@ const LoginForm = ({ isLoggedIn, onLogin, onLogout }) => {
 };
 
 export default LoginForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

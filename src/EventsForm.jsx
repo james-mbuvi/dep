@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const EventForm = () => {
@@ -8,6 +8,7 @@ const EventForm = () => {
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
   const [events, setEvents] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,20 +29,31 @@ const EventForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, 'events'), {
-        eventName,
-        organizer,
-        time,
-        date,
-      });
-      console.log('Event added with ID: ', docRef.id);
+      if (editingId) {
+        await updateDoc(doc(db, 'events', editingId), {
+          eventName,
+          organizer,
+          time,
+          date,
+        });
+        console.log('Event updated with ID: ', editingId);
+        setEditingId(null);
+      } else {
+        const docRef = await addDoc(collection(db, 'events'), {
+          eventName,
+          organizer,
+          time,
+          date,
+        });
+        console.log('Event added with ID: ', docRef.id);
+      }
       // Reset form fields
       setEventName('');
       setOrganizer('');
       setTime('');
       setDate('');
       // Update the events list
-      setEvents([...events, { id: docRef.id, eventName, organizer, time, date }]);
+      setEvents([...events, { id: editingId || docRef.id, eventName, organizer, time, date }]);
     } catch (error) {
       console.error('Error adding event: ', error);
     }
@@ -56,6 +68,15 @@ const EventForm = () => {
     } catch (error) {
       console.error('Error deleting event: ', error);
     }
+  };
+
+  const handleEdit = (id) => {
+    const eventToEdit = events.find((event) => event.id === id);
+    setEventName(eventToEdit.eventName);
+    setOrganizer(eventToEdit.organizer);
+    setTime(eventToEdit.time);
+    setDate(eventToEdit.date);
+    setEditingId(id);
   };
 
   return (
@@ -106,7 +127,7 @@ const EventForm = () => {
           />
         </div>
         <button type="submit" className="add-event-button bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          Add Event
+          {editingId ? 'Update Event' : 'Add Event'}
         </button>
       </form>
       <div className="events-list mt-6">
@@ -117,7 +138,8 @@ const EventForm = () => {
               <p className="text-gray-600">Organizer: {event.organizer}</p>
               <p className="text-gray-600">Time: {event.time}</p>
               <p className="text-gray-600">Date: {event.date}</p>
-              <button onClick={() => handleDelete(event.id)} className="delete-button mt-2 bg-red-500 text-white px-2 py-1 rounded-md">Delete</button>
+              <button onClick={() => handleEdit(event.id)} className="edit-button bg-yellow-500 text-white px-2 py-1 rounded-md">Edit</button>
+              <button onClick={() => handleDelete(event.id)} className="delete-button bg-red-500 text-white px-2 py-1 rounded-md ml-2">Delete</button>
             </div>
           </div>
         ))}

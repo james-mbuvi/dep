@@ -1,13 +1,71 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <style>
+    :root {
+      --background-color-light: #f0f0f0;
+      --background-color-dark: #333;
+      --text-color-light: #333;
+      --text-color-dark: #f0f0f0;
+    }
+
+    body {
+      background-color: var(--background-color-light);
+      color: var(--text-color-light);
+      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+      padding: 0;
+      background-image: url(https://previews.123rf.com/images/elwynn/elwynn1503/elwynn150300779/37819608-scenic-of-clouds-on-heaven-above-the-ground-good-background-for-you-to-put-text-or-people-on-the.jpg);
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    body.dark {
+      background-image: url(https://st4.depositphotos.com/16122460/27166/i/450/depositphotos_271666078-stock-photo-handsome-businessman-working-at-table.jpg);
+    }
+
+    .dark {
+      background-color: var(--background-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .theme-toggle span {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    const toggleButton = document.createElement('div');
+    toggleButton.className = 'theme-toggle';
+    toggleButton.innerHTML = '🌞<span>Light</span>';
+    let isDarkMode = false;
+
+    toggleButton.addEventListener('click', () => {
+      if (isDarkMode) {
+        document.body.classList.remove('dark');
+        toggleButton.innerHTML = '🌞<span>Light</span>';
+      } else {
+        document.body.classList.add('dark');
+        toggleButton.innerHTML = '🌜<span>Dark</span>';
+      }
+      isDarkMode = !isDarkMode;
+    });
+
+    document.body.appendChild(toggleButton);
+  </script>
+</body>
 </html>

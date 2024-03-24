@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from './firebase';
 
-const LoginForm = ({ isLoggedIn }) => {
+const LoginForm = ({ isLoggedIn, onLogin, onLogout }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -16,6 +16,7 @@ const LoginForm = ({ isLoggedIn }) => {
       setEmail('');
       setPassword('');
       setError('');
+      onLogin(); // Call the onLogin callback
     } catch (error) {
       setError('Invalid email or password. Please try again.');
       console.error('Error logging in:', error);
@@ -31,6 +32,7 @@ const LoginForm = ({ isLoggedIn }) => {
       setEmail('');
       setPassword('');
       setError('');
+      onLogin(); // Call the onLogin callback
     } catch (error) {
       setError('Failed to sign up. Please try again.');
       console.error('Error signing up:', error);
@@ -41,17 +43,23 @@ const LoginForm = ({ isLoggedIn }) => {
     try {
       await signOut(auth);
       console.log('User signed out');
+      onLogout(); // Call the onLogout callback
     } catch (error) {
       console.error('Error signing out:', error);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-gray-100 shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">{isLoggedIn ? 'Logout' : 'Login or Sign Up'}</h2>
+    <div className="max-w-md mx-auto p-4">
+      {isLoggedIn && (
+        <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Logout
+        </button>
+      )}
+      <h2 className="text-2xl font-bold mb-4">{isLoggedIn ? '' : 'Login or Sign Up'}</h2>
       {!isLoggedIn && (
         <form className="space-y-4">
-          <div className="form-group">
+          <div className="flex flex-col">
             <label htmlFor="email" className="text-gray-600">Email:</label>
             <input
               type="email"
@@ -62,7 +70,7 @@ const LoginForm = ({ isLoggedIn }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="flex flex-col">
             <label htmlFor="password" className="text-gray-600">Password:</label>
             <input
               type="password"
@@ -81,11 +89,6 @@ const LoginForm = ({ isLoggedIn }) => {
             Sign Up
           </button>
         </form>
-      )}
-      {isLoggedIn && (
-        <button onClick={handleLogout} className="logout-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          Logout
-        </button>
       )}
     </div>
   );
